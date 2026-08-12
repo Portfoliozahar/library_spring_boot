@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга</title>
+</head>
+<body>
+
+<h1>Информация о книге</h1>
+
+<p>
+    <strong>Название:</strong>
+    <span th:text="${book.title}">Название</span>
+</p>
+
+<p>
+    <strong>Автор:</strong>
+    <span th:text="${book.author}">Автор</span>
+</p>
+
+<p>
+    <strong>Год:</strong>
+    <span th:text="${book.year}">2024</span>
+</p>
+
+<hr/>
+
+<div th:if="${owner != null}">
+    <p>
+        <strong>Книгу взял:</strong>
+        <span th:text="${owner.name}">Иван Иванов</span>
+    </p>
+
+    <form th:method="PATCH"
+          th:action="@{/books/{id}/release(id=${book.id})}">
+        <input type="submit" value="Освободить книгу"/>
+    </form>
+</div>
+
+<div th:if="${owner == null}">
+    <p>Эта книга свободна.</p>
+
+    <form th:method="PATCH"
+          th:action="@{/books/{id}/assign(id=${book.id})}">
+
+        <label for="person">Выберите читателя:</label>
+
+        <select id="person" name="personId">
+            <option th:each="person : ${people}"
+                    th:value="${person.id}"
+                    th:text="${person.name}">
+            </option>
+        </select>
+
+        <br/><br/>
+
+        <input type="submit" value="Назначить книгу"/>
+    </form>
+</div>
+
+<hr/>
+
+<a th:href="@{/books/{id}/edit(id=${book.id})}">
+    Редактировать
+</a>
+
+<br/><br/>
+
+<form th:method="DELETE"
+      th:action="@{/books/{id}(id=${book.id})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+<br/>
+
+<a href="/books">← Назад к списку книг</a>
+
+</body>
+</html>
