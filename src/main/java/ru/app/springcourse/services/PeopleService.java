@@ -1,10 +1,10 @@
-package ru.alishev.springcourse.services;
+package ru.app.springcourse.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.alishev.springcourse.models.Person;
-import ru.alishev.springcourse.repositories.PeopleRepository;
+import ru.app.springcourse.models.Person;
+import ru.app.springcourse.repositories.PeopleRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 

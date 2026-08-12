@@ -1,4 +1,4 @@
-package ru.alishev.springcourse.config;
+package ru.app.springcourse.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -29,10 +29,10 @@ import java.util.Properties;
 
 
 @Configuration
-@ComponentScan("ru.alishev.springcourse")
+@ComponentScan("ru.app.springcourse")
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories("ru.alishev.springcourse.repositories")
+@EnableJpaRepositories("ru.app.springcourse.repositories")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
@@ -103,7 +103,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("ru.alishev.springcourse.models");
+        em.setPackagesToScan("ru.app.springcourse.models");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

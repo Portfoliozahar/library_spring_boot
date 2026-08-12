@@ -1,4 +1,4 @@
-package ru.alishev.springcourse.models;
+package ru.app.springcourse.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;

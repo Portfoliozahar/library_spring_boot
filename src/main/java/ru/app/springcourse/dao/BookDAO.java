@@ -1,14 +1,6 @@
-package ru.alishev.springcourse.dao;
+package ru.app.springcourse.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.alishev.springcourse.models.Book;
-import ru.alishev.springcourse.models.Person;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public class BookDAO {
