@@ -1,17 +1,13 @@
 package ru.alishev.springcourse.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.alishev.springcourse.dao.BookDAO;
-import ru.alishev.springcourse.dao.PersonDAO;
-import ru.alishev.springcourse.models.Book;
 import ru.alishev.springcourse.models.Person;
 import ru.alishev.springcourse.services.PeopleService;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import javax.validation.Valid;
 
@@ -21,13 +17,11 @@ import javax.validation.Valid;
 public class PeopleController {
 
 
-    private final  PersonDAO personDAO;
 
     private final PeopleService peopleService;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, PeopleService peopleService) {
-        this.personDAO = personDAO;
+    public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
     }
 
