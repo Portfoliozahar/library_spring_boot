@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Читатель</title>
+</head>
+<body>
+
+<h1>Информация о читателе</h1>
+
+<p>
+    <strong>ФИО:</strong>
+    <span th:text="${person.name}">Иван Иванов</span>
+</p>
+
+<p>
+    <strong>Возраст:</strong>
+    <span th:text="${person.age}">25</span>
+</p>
+
+<hr>
+
+<h2>Книги</h2>
+
+<div th:if="${person.books.isEmpty()}">
+    <p>Человек пока не взял ни одной книги.</p>
+</div>
+
+<div th:unless="${person.books.isEmpty()}">
+    <ul>
+        <li th:each="book : ${person.books}">
+            <span th:text="${book.title}">Название</span>
+            —
+            <span th:text="${book.author}">Автор</span>,
+            <span th:text="${book.year}">2025</span>
+        </li>
+    </ul>
+</div>
+
+<hr>
+
+<a th:href="@{/people/{id}/edit(id=${person.id})}">
+    Редактировать
+</a>
+
+<br><br>
+
+<form th:method="DELETE"
+      th:action="@{/people/{id}(id=${person.id})}">
+    <input type="submit" value="Удалить">
+</form>
+
+<br>
+
+<a th:href="@{/people}">
+    ← Назад к списку читателей
+</a>
+
+</body>
+</html>
+
