@@ -28,11 +28,14 @@
 
 <div th:unless="${person.books.isEmpty()}">
     <ul>
-        <li th:each="book : ${person.books}">
+        <li th:each="book : ${person.books}"
+            th:style="${book.overdue} ? 'color: red;' : ''">
+
             <span th:text="${book.title}">Название</span>
             —
             <span th:text="${book.author}">Автор</span>,
             <span th:text="${book.year}">2025</span>
+
         </li>
     </ul>
 </div>
@@ -58,4 +61,3 @@
 
 </body>
 </html>
-

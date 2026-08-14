@@ -8,7 +8,7 @@
 
 <h1>Список книг</h1>
 
-<div th:each="book : ${books}">
+<div th:each="book : ${books.content}">
     <a th:href="@{/books/{id}(id=${book.id})}"
        th:text="${book.title + ' — ' + book.author + ', ' + book.year}">
         Книга
@@ -16,10 +16,36 @@
 </div>
 
 <br/>
+
+<!-- Пагинация -->
+
+<div th:if="${books.totalPages > 1}">
+
+    <a th:if="${books.hasPrevious()}"
+       th:href="@{/books(page=${books.number - 1}, booksPerPage=${books.size})}">
+        ← Назад
+    </a>
+
+    <span>
+        Страница
+        <span th:text="${books.number + 1}"></span>
+        из
+        <span th:text="${books.totalPages}"></span>
+    </span>
+
+    <a th:if="${books.hasNext()}"
+       th:href="@{/books(page=${books.number + 1}, booksPerPage=${books.size})}">
+        Вперёд →
+    </a>
+
+</div>
+
+<br/>
 <hr/>
 
 <a href="/books/new">Добавить новую книгу</a>
 
+<br/>
 <br/>
 
 <a href="/books/search">Поиск книги</a>

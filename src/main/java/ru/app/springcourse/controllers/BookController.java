@@ -1,6 +1,7 @@
 package ru.app.springcourse.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,9 +27,33 @@ public class BookController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    public String index(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int booksPerPage,
+            @RequestParam(defaultValue = "false") boolean sortByYear,
+            Model model) {
+
+        Page<Book> books =
+                bookService.findAll(page, booksPerPage, sortByYear);
+
+        model.addAttribute("books", books);
+
         return "books/index";
+    }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String search(
+            @RequestParam("title") String title,
+            Model model) {
+
+        model.addAttribute("books", bookService.search(title));
+
+        return "books/search";
     }
 
     @GetMapping("/{id}")

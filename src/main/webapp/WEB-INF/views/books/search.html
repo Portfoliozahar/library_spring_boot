@@ -1,39 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Search Book</title>
+    <title>Поиск книги</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/books/search}">
-    <label for="query">Input query:</label>
-    <input type="text" id="query" name="query">
-    <br/>
-    <input type="submit" value="Search"/>
+
+<h1>Поиск книги</h1>
+
+<form th:action="@{/books/search}" method="post">
+
+    <label>Введите начало названия:</label>
+
+    <input type="text" name="title">
+
+    <input type="submit" value="Поиск">
+
 </form>
-<div th:if="${books}">
+
+<hr>
+
+<div th:if="${books != null}">
+
     <div th:if="${books.isEmpty()}">
-        <span>No books found</span>
+        Книги не найдены
     </div>
 
     <div th:each="book : ${books}">
-        <p th:text="|${book.getTitle()}, ${book.getAuthor()}, ${book.getYearOfPublishing()}|">book</p>
 
-        <div th:if="${book.getBookOwner() != null}">
-            <span>The book is taken by: </span>
-            <a th:href="@{/people/{id}(id=${book.getBookOwner().getId()})}"
-               th:text="${book.getBookOwner().getName()}">Book owner name</a>
-        </div>
+        <p>
+            <strong th:text="${book.title}"></strong>
+            —
+            <span th:text="${book.author}"></span>
+        </p>
 
-        <div th:if="${book.getBookOwner() == null}">
-            <span>The book is free</span>
-        </div>
-        <hr/>
+        <p th:if="${book.owner != null}">
+            Владелец:
+            <span th:text="${book.owner.name}"></span>
+        </p>
+
+        <p th:if="${book.owner == null}">
+            Книга свободна
+        </p>
+
+        <hr>
+
     </div>
+
 </div>
-<br/>
-<form action="/books">
-    <input type="submit" value="Return to books">
-</form>
+
+<a th:href="@{/books}">← Все книги</a>
+
 </body>
 </html>
