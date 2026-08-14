@@ -26,14 +26,17 @@ public class PersonValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
-//        Person person = (Person) target;
-//
-//        Person foundPerson = peopleService.findByName(person.getName());
-//
-//        if (foundPerson != null && foundPerson.getId() != person.getId()) {
-//            errors.rejectValue("name", "", "Человек с таким именем уже существует");
-//        }
-    }
+    public void validate(Object o, Errors errors) {
+        Person person = (Person) o;
 
+        Person foundPerson = peopleService.findByName(person.getName());
+
+        if (foundPerson != null && foundPerson.getId() != person.getId()) {
+            errors.rejectValue(
+                    "name",
+                    "",
+                    "Человек с таким именем уже существует"
+            );
+        }
+    }
 }

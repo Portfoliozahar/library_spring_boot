@@ -11,7 +11,6 @@ import ru.app.springcourse.repositories.PeopleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -59,7 +58,11 @@ public class BookService {
     }
 
     public void update(int id, Book updatedBook) {
+        Book bookToBeUpdated = bookRepository.findById(id).get();
+
         updatedBook.setId(id);
+        updatedBook.setOwner(bookToBeUpdated.getOwner());
+
         bookRepository.save(updatedBook);
     }
 
@@ -68,31 +71,28 @@ public class BookService {
     }
 
     @Transactional
-    public void assign(int bookId, int personId) {
+    public void assign(int id, int selectedPerson) {
 
-        Book book = bookRepository.findById(bookId).orElse(null);
-        Person person = peopleRepository.findById(personId).orElse(null);
-
-        if (book != null && person != null) {
-            book.setOwner(person);
-            book.setTakenAt(LocalDateTime.now());
-
-            bookRepository.save(book);
-        }
+        bookRepository.findById(id).ifPresent(book ->
+                peopleRepository.findById(selectedPerson).ifPresent(person -> {
+                    book.setOwner(person);
+                    book.setTakenAt(LocalDateTime.now());
+                })
+        );
     }
 
     @Transactional
-    public void release(int bookId) {
+    public void release(int id) {
 
-        Book book = bookRepository.findById(bookId).orElse(null);
+        bookRepository.findById(id).ifPresent(
+                book -> {
+                    book.setOwner(null);
+                    book.setTakenAt(null);
+                });
 
-        if (book != null) {
-            book.setOwner(null);
-            book.setTakenAt(null);
 
-            bookRepository.save(book);
-        }
     }
+
 
     public boolean isOverdue(Book book) {
 

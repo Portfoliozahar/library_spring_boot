@@ -25,7 +25,7 @@ public class Person {
     private int age;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-    private List<Book> books = new ArrayList<>();
+    private List<Book> books;
 
     public Person() {
     }

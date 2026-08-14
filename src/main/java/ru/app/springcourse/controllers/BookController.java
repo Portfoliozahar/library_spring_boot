@@ -41,20 +41,6 @@ public class BookController {
         return "books/index";
     }
 
-    @GetMapping("/search")
-    public String searchPage() {
-        return "books/search";
-    }
-
-    @PostMapping("/search")
-    public String search(
-            @RequestParam("title") String title,
-            Model model) {
-
-        model.addAttribute("books", bookService.search(title));
-
-        return "books/search";
-    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable int id, Model model) {
@@ -124,5 +110,20 @@ public class BookController {
     public String release(@PathVariable int id) {
         bookService.release(id);
         return "redirect:/books/" + id;
+    }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String search(
+            @RequestParam("title") String title,
+            Model model) {
+
+        model.addAttribute("books", bookService.search(title));
+
+        return "books/search";
     }
 }

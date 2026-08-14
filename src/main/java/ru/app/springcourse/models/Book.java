@@ -95,9 +95,6 @@ public class Book {
         this.takenAt = takenAt;
     }
 
-
-
-
     public boolean isOverdue() {
         return overdue;
     }

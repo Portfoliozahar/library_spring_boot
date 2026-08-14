@@ -7,11 +7,9 @@ import ru.app.springcourse.models.Book;
 import ru.app.springcourse.models.Person;
 import ru.app.springcourse.repositories.PeopleRepository;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -56,6 +54,7 @@ public class PeopleService {
     public void delete(int id) {
         peopleRepository.deleteById(id);
     }
+
 
     public Person findByName(String name) {
         List<Person> people = peopleRepository.findByName(name);
